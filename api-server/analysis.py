@@ -11,6 +11,7 @@ from tqdm import tqdm
 from functools import lru_cache
 import numpy as np
 import json
+import numpy as np
 
 
 PAR_PATH = osp.dirname(osp.realpath(__file__))

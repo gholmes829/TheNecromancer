@@ -21,7 +21,7 @@ const defaultPrev = [
   },
 ];
 const defaultDocs = { "Enter a query for document relevances": "" };
-const defaultStats = { "Enter a query for corpus statistics": "" };
+const defaultStats = { values: "Enter a query for corpus statistics" };
 
 const defaults = {
   prev: defaultPrev,
@@ -191,7 +191,7 @@ const GraphsPage = () => {
           >
             <MenuItem value={"prev"}>Prevalence</MenuItem>
             <MenuItem value={"docs"}>Relevant Documents</MenuItem>
-            <MenuItem value={"stats"}>Corpus Statistics</MenuItem>
+            <MenuItem value={"stats"}>Similar Words</MenuItem>
           </Select>
         </Box>
       </div>
