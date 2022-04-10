@@ -68,4 +68,16 @@ def prev_over_time(query: list[str]):
         'text': [str(len(year_to_titles[t])) + ' docs' for t in range(earliest, latest + 1)],
         }
 
+def statistics(query: list[str]):
+    query_tokens = nlp.process_and_word_tokenize(query)
+    d = defaultdict(lambda: {'c': 0, 's': 0})
+    for token in query_tokens:
+        closest_words = [(word, score) for word, score in EMBEDDING_MODEL.wv.most_similar(token, topn = 50) if token not in word]
+        for word, score in closest_words:
+            d[word]['c'] += 1
+            d[word]['s'] += score
+
+    relevant_words = [(word, data['c'], data['s'] / data['c']) for word, data in d.items()]
+    relevant_words.sort(key = lambda x: (lambda word, count, avg_s: count + avg_s)(*x), reverse = True)
+    return list(np.array(relevant_words[:10])[:, 0])
 #ic(prev_over_time('death'))
