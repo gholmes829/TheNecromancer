@@ -9,6 +9,7 @@ from gensim.models import FastText
 from collections import defaultdict
 from tqdm import tqdm
 from functools import lru_cache
+import numpy as np
 import json
 
 
@@ -53,7 +54,7 @@ for data in METADATA:
 years_range = latest - earliest
 
 
-def prev_over_time(query: list[str]):
+def prev_over_time(query: list[str], window: int = 5):
     query_tokens = nlp.process_and_word_tokenize(query)
     t_scores = []
     for t in tqdm(range(earliest, latest + 1)):
@@ -62,10 +63,16 @@ def prev_over_time(query: list[str]):
             t_scores.append(0)
             continue
         t_scores.append(sum([sim for qt in query_tokens for doc in docs_t for dt in doc if (sim := similarity(qt, dt)) > 0.7]) / (len(query_tokens) * sum([len(doc) for doc in docs_t])))
+    smoothed_t_scores = []
+    for i in range(window, latest - earliest + 1):
+        smoothed_t_scores.append(sum(t_scores[i - window:i]) / window)
+    T = list(range(earliest + window, latest + 1))
+    Y = smoothed_t_scores
+    text = [str(len(year_to_titles[t])) + ' docs' for t in range(earliest + window, latest + 1)]
     return {
-        'x': list(range(earliest, latest + 1)),
-        'y': t_scores,
-        'text': [str(len(year_to_titles[t])) + ' docs' for t in range(earliest, latest + 1)],
+        'x': T,
+        'y': Y,
+        'text': text,
         }
 
 def statistics(query: list[str]):
@@ -80,4 +87,5 @@ def statistics(query: list[str]):
     relevant_words = [(word, data['c'], data['s'] / data['c']) for word, data in d.items()]
     relevant_words.sort(key = lambda x: (lambda word, count, avg_s: count + avg_s)(*x), reverse = True)
     return list(np.array(relevant_words[:10])[:, 0])
-#ic(prev_over_time('death'))
+
+prev_over_time('death')
