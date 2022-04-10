@@ -14,8 +14,8 @@ import os.path as osp
 import json
 
 PAR_PATH = osp.dirname(osp.realpath(__file__))
-ROOT_PATH = osp.join(PAR_PATH, '..', '..', '..')
-SEARCH_PATH = osp.join(ROOT_PATH, 'api-server', 'core', 'search')
+ROOT_PATH = osp.join(PAR_PATH, '..', '..')
+SEARCH_PATH = osp.join(ROOT_PATH, 'api-server', 'search')
 
 with open(osp.join(SEARCH_PATH, 'index.json'), 'r') as f: index = json.load(f)
 with open(osp.join(SEARCH_PATH, 'doc_names.json'), 'r') as f: doc_name_to_vec= json.load(f)
