@@ -26,11 +26,8 @@ const Navbar = () => {
           <Link to="/about">
             <Button color="inherit">About</Button>
           </Link>
-          <Link to="/findings">
-            <Button color="inherit">Findings</Button>
-          </Link>
           <a
-            href="https://github.com/gholmes829/TheBigDogSemanticsModule"
+            href="https://github.com/gholmes829/TheNecromancer"
             target="_blank"
           >
             <Button color="inherit">
