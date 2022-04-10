@@ -1,0 +1,20 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #D4D5E2;
+}
+
+.App {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+a:link { color: #FFF; text-decoration: none; }
+a:visited { color: #FFF; text-decoration: none; }
+a:hover { color: #FFF; text-decoration: none; }
+a:active { color: #FFF; text-decoration: none; }
