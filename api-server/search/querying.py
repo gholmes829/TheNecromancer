@@ -79,10 +79,13 @@ def search(query: str, top_k: int = 10) -> list[tuple[str, float]]:
     doc_matrix = np.array([doc_name_to_vec[doc] for doc in doc_names])
     scores = doc_matrix @ make_query_vector(query_tokens)
     sorted_idx = np.argsort(scores)[::-1]
-    return tuple(zip(
-        doc_names[sorted_idx][:top_k],
-        smooth(np.array(scores[sorted_idx][:top_k]), 0.05)
-    ))
+    flat = {
+        "names": list(doc_names[sorted_idx][:top_k]),
+        "scores": list(smooth(np.array(scores[sorted_idx][:top_k]), 0.05))
+    }
+    # generate dict with keys doc_names[sorted_idx][:top_k] and values smooth(np.array(scores[sorted_idx][:top_k]), 0.05)
+    new_dict = {k: v for k, v in zip(flat['names'], flat['scores'])}
+    return new_dict
 
 if __name__ == "__main__":
     q = ""

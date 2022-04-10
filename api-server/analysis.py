@@ -10,6 +10,7 @@ from collections import defaultdict
 from tqdm import tqdm
 from functools import lru_cache
 import json
+import numpy as np
 
 
 PAR_PATH = osp.dirname(osp.realpath(__file__))

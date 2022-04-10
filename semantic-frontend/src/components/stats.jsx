@@ -4,11 +4,11 @@ import { Typography } from "@mui/material";
 const CorpusStatistics = (props) => {
   const { statData } = props;
 
-  return Object.entries(statData).map((pair, idx) => {
+  return Object.entries(statData.values).map((val, idx) => {
     return (
       <div key={idx} style={{ textAlign: "center" }}>
         <Typography variant="h6" gutterBottom>
-          {pair[0]}: {pair[1]}
+          {val[1]}
         </Typography>
       </div>
     );

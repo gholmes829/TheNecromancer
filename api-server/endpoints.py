@@ -8,6 +8,8 @@ from typing import Callable, Any
 from icecream import ic
 import sys
 import os.path as osp
+from search.querying import search
+from analysis import statistics
 
 # PAR_PATH = osp.dirname(osp.realpath(__file__))
 # ROOT_PATH = osp.join(PAR_PATH, '..', '..')
@@ -33,26 +35,15 @@ def PrevalenceScore():
     ic(request.args.get('query'))
     query = request.args.get('query')
     return prev_over_time(query)
-    # return {
-    #     'x': [x for x in range(len(query))],
-    #     'y': [x ** 2 for x in range(len(query))],
-    #     'text': ["hi" for _ in range(len(query))]
-    # }
 
 @register_endpoint('/docs')
 def DocumentRelevance():
     ic(request.args.get('query'))
     query = request.args.get('query')
-    return {
-        query: 1,
-        "len": len(query)
-    }
+    return search(query)
 
 @register_endpoint('/stats')
 def QueryStatistics():
     ic(request.args.get('query'))
     query = request.args.get('query')
-    return {
-        query: 1,
-        "len": len(query)
-    }
+    return {"values": statistics(query)}
