@@ -15,7 +15,7 @@ const Navbar = () => {
             aria-label="menu"
           >
             <Typography variant="h6" component="div" sx={{ flex: 1 }}>
-              Semantic Evolution
+              The Necromancer
             </Typography>
           </IconButton>
         </Link>
